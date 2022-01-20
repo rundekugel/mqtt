@@ -22,19 +22,24 @@ def on_message(client, userdata, msg):
 av=sys.argv
 if len(av)<2:
   print("no args. use: "+av[0]+" server[:port] <topic>")
-  sys.exit()
+  print("optional: -t=<timeout in sec.> ; -l=<max. lines to read>")
+sys.exit()
 server=av[1]
 port=1883
+lines = 10
 if  ":" in server:
   sp=server.split(":")
   server=sp[0]
   port=sp[1]
+
 if len(av)>2:  
   topic=av[2]
 if len(av)>3:
   for p in av[3:]:
     if p[:2]=="-t":
       timeout = int(p[3:],10)
+    if p[:2]=="-l":
+      lines= int(p[3:],10)
 
 if verbosity:
   print("Server: %s:%d  Topic: %s"%(server, port, topic))
@@ -50,7 +55,7 @@ while doit:
   if time.time() > endtime:
     print("timeout!")
     doit = 0
-time.sleep(0.2)
+time.sleep(0.1)
 client.disconnect() # disconnect gracefully
 #time.sleep(1) #wait for finish
 if verbosity:
