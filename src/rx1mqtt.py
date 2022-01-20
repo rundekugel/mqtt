@@ -23,7 +23,7 @@ av=sys.argv
 if len(av)<2:
   print("no args. use: "+av[0]+" server[:port] <topic>")
   print("optional: -t=<timeout in sec.> ; -l=<max. lines to read>")
-sys.exit()
+  sys.exit()
 server=av[1]
 port=1883
 lines = 10
@@ -36,10 +36,13 @@ if len(av)>2:
   topic=av[2]
 if len(av)>3:
   for p in av[3:]:
+    print(p)
     if p[:2]=="-t":
       timeout = int(p[3:],10)
     if p[:2]=="-l":
       lines= int(p[3:],10)
+    if p[:2]=="-v":
+      verbosity= int(p[3:],10)
 
 if verbosity:
   print("Server: %s:%d  Topic: %s"%(server, port, topic))
