@@ -31,7 +31,7 @@ passwd=None
 if  ":" in server:
   sp=server.split(":")
   server=sp[0]
-  port=sp[1]
+  port=int(sp[1])
 if len(av)>2:  
   topic=av[2]
   
